@@ -22,11 +22,12 @@ class MostActiveCookieCommand : CliktCommand() {
                 false
             }
         }
+    private val cookiesProcessor = CookiesProcessor()
 
     override fun run() {
         try {
             val date = LocalDate.parse(dateStr)
-            val mostActiveCookies = CookiesProcessor().findMostActiveCookies(fileName, date)
+            val mostActiveCookies = cookiesProcessor.findMostActiveCookies(fileName, date)
             mostActiveCookies.forEach {
                 echo(it)
             }
