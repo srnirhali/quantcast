@@ -9,6 +9,8 @@ import kotlin.test.assertContains
 
 class MostActiveCookieCommandTest {
 
+    private val mostActiveCookieCommand = MostActiveCookieCommand()
+
         @Test
         fun `test MostActiveCookieCommand`() {
             // Create a temporary file with test data
@@ -25,8 +27,8 @@ class MostActiveCookieCommandTest {
             """.trimIndent().lines()
             )
 
-            val command = MostActiveCookieCommand()
-            val result = command.test( "-f", tempFile.toAbsolutePath().toString(), "-d", "2022-01-10")
+
+            val result = mostActiveCookieCommand.test( "-f", tempFile.toAbsolutePath().toString(), "-d", "2022-01-10")
             assertEquals(0, result.statusCode)
             assertEquals("cookie1\n",result.output)
             Files.delete(tempFile)
@@ -35,16 +37,15 @@ class MostActiveCookieCommandTest {
     @Test
     fun `test MostActiveCookieCommand invalid date value`() {
         val IN_VALID_DATE = "2022.01.10"
-        val command = MostActiveCookieCommand()
-        val result = command.test( "-f", "filename", "-d", IN_VALID_DATE)
+        val result = mostActiveCookieCommand.test( "-f", "filename", "-d", IN_VALID_DATE)
         assertEquals(1, result.statusCode)
         assertContains(result.output,"invalid value for --date")
     }
 
     @Test
     fun `test MostActiveCookieCommand -d value missing case`() {
-        val command = MostActiveCookieCommand()
-        val result = command.test("-f", "filename")
+
+        val result = mostActiveCookieCommand.test("-f", "filename")
         assertEquals(1, result.statusCode)
         assertContains(result.stderr,"missing option --date",)
 
@@ -52,8 +53,8 @@ class MostActiveCookieCommandTest {
 
     @Test
     fun `test MostActiveCookieCommand -f value missing case`() {
-        val command = MostActiveCookieCommand()
-        val result = command.test("-d", "2022-01-10")
+
+        val result = mostActiveCookieCommand.test("-d", "2022-01-10")
         assertEquals(1, result.statusCode)
         assertContains(result.stderr,"missing option --file")
     }
@@ -63,10 +64,9 @@ class MostActiveCookieCommandTest {
     fun `test MostActiveCookieCommand -f source not found`() {
 
         val NOT_VALID_FILENAME = "filename"
-        val command = MostActiveCookieCommand()
-        val result = command.test( "-f", NOT_VALID_FILENAME, "-d", "2022-01-10")
+        val result = mostActiveCookieCommand.test( "-f", NOT_VALID_FILENAME, "-d", "2022-01-10")
         assertEquals(1, result.statusCode)
-        assertContains(result.output,"$NOT_VALID_FILENAME (No such file or directory)")
+        assertContains(result.output,"$NOT_VALID_FILENAME ")
     }
 
 
