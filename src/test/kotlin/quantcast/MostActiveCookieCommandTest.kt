@@ -65,6 +65,7 @@ class MostActiveCookieCommandTest {
         val NOT_VALID_FILENAME = "filename"
         val command = MostActiveCookieCommand()
         val result = command.test( "-f", NOT_VALID_FILENAME, "-d", "2022-01-10")
+        assertEquals(1, result.statusCode)
         assertContains(result.output,"$NOT_VALID_FILENAME (No such file or directory)")
     }
 

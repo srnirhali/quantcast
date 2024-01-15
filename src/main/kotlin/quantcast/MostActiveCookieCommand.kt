@@ -1,6 +1,7 @@
 package quantcast
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.CliktError
 
 import com.github.ajalt.clikt.parameters.options.check
 import com.github.ajalt.clikt.parameters.options.option
@@ -35,14 +36,20 @@ class MostActiveCookieCommand : CliktCommand() {
 
     }
     private fun handleException(e: Exception) {
-        when (e) {
+        val message = when (e) {
             is FileNotFoundException -> {
-                echo(e.localizedMessage)
+                "Given file location not found : ${e.localizedMessage}"
             }
+
+            is DateTimeParseException -> {
+                "Given file timestamp value error : ${e.localizedMessage}"
+            }
+
             else -> {
-                echo("An unexpected error occurred: ${e.localizedMessage}")
+                "An unexpected error occurred: ${e.localizedMessage}"
             }
 
         }
+        throw CliktError(message,e)
     }
 }
