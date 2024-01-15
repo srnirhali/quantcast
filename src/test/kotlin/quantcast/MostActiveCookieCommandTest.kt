@@ -1,3 +1,5 @@
+package quantcast
+
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import com.github.ajalt.clikt.testing.test

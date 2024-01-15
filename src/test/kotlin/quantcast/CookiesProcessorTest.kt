@@ -1,3 +1,5 @@
+package quantcast
+
 import org.junit.jupiter.api.Test
 import java.nio.file.Files
 import java.nio.file.Path
@@ -7,7 +9,7 @@ import java.io.FileNotFoundException
 
 class CookiesProcessorTest {
 
-    private val cookiesProcessor:CookiesProcessor = CookiesProcessor()
+    private val cookiesProcessor: CookiesProcessor = CookiesProcessor()
 
     @Test
     fun `test findMostActiveCookies single value return`() {

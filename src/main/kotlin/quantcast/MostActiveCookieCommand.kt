@@ -1,7 +1,6 @@
+package quantcast
+
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.PrintHelpMessage
-import com.github.ajalt.clikt.core.PrintMessage
-import com.github.ajalt.clikt.core.UsageError
 
 import com.github.ajalt.clikt.parameters.options.check
 import com.github.ajalt.clikt.parameters.options.option
@@ -10,7 +9,6 @@ import java.io.FileNotFoundException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-import kotlin.system.exitProcess
 
 class MostActiveCookieCommand : CliktCommand() {
     private val fileName by option("-f", "--file", help = "CSV file name").required()
